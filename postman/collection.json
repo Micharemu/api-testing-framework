@@ -1,0 +1,77 @@
+{
+    "info": {
+      "name": "REST API Testing Framework",
+      "_postman_id": "b1234567-api-framework",
+      "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+      {
+        "name": "Health Check",
+        "request": {
+          "method": "GET",
+          "url": "{{baseUrl}}/health"
+        },
+        "event": [
+          {
+            "listen": "test",
+            "script": {
+              "exec": [
+                "pm.test(\"Status code is 200\", function () {",
+                "    pm.response.to.have.status(200);",
+                "});"
+              ],
+              "type": "text/javascript"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Get Users",
+        "request": {
+          "method": "GET",
+          "url": "{{baseUrl}}/users"
+        },
+        "event": [
+          {
+            "listen": "test",
+            "script": {
+              "exec": [
+                "pm.test(\"Users list returned\", function () {",
+                "    pm.expect(pm.response.json().length).to.be.above(0);",
+                "});"
+              ],
+              "type": "text/javascript"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Create User",
+        "request": {
+          "method": "POST",
+          "header": [
+            { "key": "Content-Type", "value": "application/json" }
+          ],
+          "url": "{{baseUrl}}/users",
+          "body": {
+            "mode": "raw",
+            "raw": "{ \"name\": \"John Doe\", \"email\": \"john@test.com\" }"
+          }
+        },
+        "event": [
+          {
+            "listen": "test",
+            "script": {
+              "exec": [
+                "pm.test(\"User created successfully\", function () {",
+                "    pm.response.to.have.status(201);",
+                "});"
+              ],
+              "type": "text/javascript"
+            }
+          }
+        ]
+      }
+    ]
+  }
+  
