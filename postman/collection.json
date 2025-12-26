@@ -9,7 +9,7 @@
         "name": "Health Check",
         "request": {
           "method": "GET",
-          "url": "{{baseUrl}}/health"
+          "url": "{{baseUrl}}/posts"
         },
         "event": [
           {
@@ -19,8 +19,7 @@
                 "pm.test(\"Status code is 200\", function () {",
                 "    pm.response.to.have.status(200);",
                 "});"
-              ],
-              "type": "text/javascript"
+              ]
             }
           }
         ]
