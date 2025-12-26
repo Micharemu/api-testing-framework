@@ -10,17 +10,20 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Install Node.js
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '18'
 
-       - name: Install Newman HTML Extra Reporter
-  run: npm install -g newman-reporter-htmlextra
+      - name: Install Newman
+        run: npm install -g newman
 
-  - name: Run API Tests
-  run: |
-    newman run postman/collection.json \
-    -e postman/environment.json \
-    -r htmlextra \
-    --reporter-htmlextra-export newman/report.html
+      - name: Install Newman HTML Extra Reporter
+        run: npm install -g newman-reporter-htmlextra
+
+      - name: Run API Tests
+        run: |
+          newman run postman/collection.json \
+            -e postman/environment.json \
+            -r cli,htmlextra \
+            --reporter-htmlextra-export newman/report.html
